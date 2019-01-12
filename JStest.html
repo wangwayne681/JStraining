@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Facebook Test</title>
+    </head>
+    <body>
+        <!--讀取facebook SDK-->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.2&appId=315019035782824&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <h3>website title</h3>
+        <div class="fb-like" data-href="https://wangwayne681.github.io/JStraining/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+    </body>
+</html>
