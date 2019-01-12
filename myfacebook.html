@@ -39,6 +39,7 @@
                 main.style.display="none";
                 if (response.status === "connected") {
                     main.style.display = "block";
+                    testAPI() //抓取使用者的資料
                     // window.location 導向服務網站
                 } else {
                     welcome.style.display = "block";
@@ -49,6 +50,12 @@
                 FB.login(function(response) {
                     statusChangeCallback(response);
                 }, {scope:"email, user_gender"});
+            }
+
+            function testAPI() {
+                FB.api('/me', function(response) { //使用者資料
+                    console.log(response);
+                });
             }
         </script>
     </head>
