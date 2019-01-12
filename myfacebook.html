@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Facebook Login</title>
+        <script>
+            // 1. 載入 Facebook JavaScript SDK
+            (function(d, s, id) {
+                let js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // 2. 載入完成後,呼叫 window.fbAsyncInit 函式
+            window.fbAsyncInit = function() {
+                // 初始化 Facebook SDK 套件
+                FB.init({
+                appId      : '315019035782824',
+                cookie     : true,  // enable cookies to allow the server to access 
+                                    // the session
+                xfbml      : true,  // parse social plugins on this page
+                version    : 'v2.8' // use graph api version 2.8
+                });
+
+                // Now that we've initialized the JavaScript SDK, we call 
+                // FB.getLoginStatus().  This function gets the state of the
+                // person visiting this page and can return one of three states to
+                // the callback you provide.  They can be:
+                //
+                // 1. Logged into your app ('connected')
+                // 2. Logged into Facebook, but not your app ('not_authorized')
+                // 3. Not logged into Facebook and can't tell if they are logged into
+                //    your app or not.
+                //
+                // These three cases are handled in the callback function.
+                
+                // 偵測使用者的登入狀態
+                FB.getLoginStatus(function(response) {
+                    //console.log(reponse);
+                statusChangeCallback(response);
+                });
+
+            };
+            // 3. 登入狀態改變時, 做出對應的處理
+            function statusChangeCallback(response) { //使用者已登入
+                console.log('statusChangeCallback');
+                console.log(response);
+                let welcome = document.getElementById("welcome");
+                let main = document.getElementById("main");
+                welcome.style.display="none";
+                main.style.display="none";
+                if (response.staus === "connected") {
+                    main.style.display = "block";
+                } else {
+                    welcome.style.display = "block";
+                }
+
+                // The response object is returned with a status field that lets the
+                // app know the current login status of the person.
+                // Full docs on the response object can be found in the documentation
+                // for FB.getLoginStatus().
+                if (response.status === 'connected') { //抓取使用者的資料
+                // Logged into your app and Facebook.
+                testAPI();
+                } else { // 使用者未登入, 鼓勵使用者登入
+                // The person is not logged into your app or we are unable to tell.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <h3>Facebook Login</h3>
+        <div id="welcome" style="display: none;">
+            <button>Login</button>
+        </div>
+        <div id="main" style="display: none;">
+            Hello.
+        </div>
+    </body>
+</html>
