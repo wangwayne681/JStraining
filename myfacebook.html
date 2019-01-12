@@ -53,7 +53,7 @@
             }
 
             function testAPI() {
-                FB.api('/me?fields=id,name,email,user_gender,user_birthday', function(response) { //抓取使用者資料
+                FB.api('/me?fields=id,name,email,gender,birthday', function(response) { //抓取使用者資料
                     console.log(response);
                 });
             }
