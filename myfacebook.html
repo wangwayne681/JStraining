@@ -24,18 +24,6 @@
                 version    : 'v2.8' // use graph api version 2.8
                 });
 
-                // Now that we've initialized the JavaScript SDK, we call 
-                // FB.getLoginStatus().  This function gets the state of the
-                // person visiting this page and can return one of three states to
-                // the callback you provide.  They can be:
-                //
-                // 1. Logged into your app ('connected')
-                // 2. Logged into Facebook, but not your app ('not_authorized')
-                // 3. Not logged into Facebook and can't tell if they are logged into
-                //    your app or not.
-                //
-                // These three cases are handled in the callback function.
-                
                 // 偵測使用者的登入狀態
                 FB.getLoginStatus(function(response) {
                     //console.log(response);
@@ -55,7 +43,12 @@
                     welcome.style.display = "block";
                 }
 
+            }
 
+            function login() {
+                FB.login(function(response) {
+                    statusChangeCallback(response);
+                })
             }
 
         </script>
@@ -63,7 +56,7 @@
     <body>
         <h3>Facebook Login</h3>
         <div id="welcome" style="display: none;">
-            <button>Login</button>
+            <button onclick="login();">Login</button>
         </div>
         <div id="main" style="display: none;">
             Hello.
