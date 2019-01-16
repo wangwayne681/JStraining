@@ -50,7 +50,7 @@
             function login() {
                 FB.login(function(response) {
                     statusChangeCallback(response);
-                }, {scope:"email, user_gender"});
+                }, {scope:"email, user_gender, user_posts"});
             }
 
             function testAPI() {
