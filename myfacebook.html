@@ -57,6 +57,10 @@
                 FB.api('/me?fields=id,name,email,gender,birthday', function(response) { //抓取使用者資料
                     console.log(response);
                 });
+                // 抓取使用者塗鴉牆上的 Posts
+                FB.api('/me/feed', function(response) {
+                    console.log(response);
+                })
             }
         </script>
     </head>
