@@ -64,7 +64,7 @@
                 } else {
                     // alert("OK");
                     read();
-                    content = "";
+                    document.getElementById("content").value = "";
                 }
             });
         }
@@ -73,9 +73,11 @@
             ref.once("value", function(snapshots) {
                 let data = [];
                 snapshots.forEach(function(snapshot) {
-                    data.push(snapshot.val());
+                    let message = snapshot.val();
+                    message.key = snapshot.key;
+                    data.push(message);
                 });
-                // console.log(data);
+                console.log(data);
                 show(data);
             });
         }
@@ -85,8 +87,27 @@
             let message;
             for (let i=0; i<data.length; i++) {
                 message=data[i];
-                list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
+                if (currentUser === null) { // 未登入狀態
+                    list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
+                } else { // 登入狀態
+                    if ( currentUser === message.id) { // 和留言的作者是同一個人
+                        list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del();'>Delete</button>" + "<hr />" + list.innerHTML;
+                    } else { // 不同的人
+                        list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
+                    }
+                }
             }
+        }
+        function del() {
+            let ref = db.ref("/messages/???");
+            ref.remove(function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Remove");
+                    read();
+                }
+            });
         }
         // 網頁載入完成後,做一些處理
         window.addEventListener("load", function() {
