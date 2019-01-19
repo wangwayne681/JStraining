@@ -99,7 +99,7 @@
             }
         }
         function del(key) {
-            let ref = db.ref("/messages/ "+ key);
+            let ref = db.ref("/messages/" + key);
             ref.remove(function(error) {
                 if (error) {
                     alert(error);
