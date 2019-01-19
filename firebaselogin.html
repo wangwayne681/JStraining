@@ -22,16 +22,19 @@
         let provider = new firebase.auth.FacebookAuthProvider();
         provider.addScope('user_birthday');
         // 當使用者的登入狀態變化的時候,執行我們提供的函式.
+        let currentUser = null;
         auth.onAuthStateChanged(function(user) {
             let member = document.getElementById("member");
             let welcome = document.getElementById("welcome");
             member.style.display="none";
             welcome.style.display="none";
-            if (user) { //使用者已經登入
+            if (user) { // 使用者已經登入
                 console.log(user);
+                currentUser = user;
                 member.style.display="block";
-            } else { //使用者已經登出
+            } else { // 使用者已經登出
                 welcome.style.display="block";
+                currentUser = null;
                 console.log(user);
             }
         });
@@ -43,7 +46,24 @@
                 console.log(error);
             });
         }
+        let db = firebase.database();
+        function post() {
+            let id = currentUser.uid;
+            let name = currentUser.displayName;
+            let content = getElementById("content");
+            // 加入資料庫
+            let ref = db.ref("/message");
+            ref.push({
+                id:id, name:name, content: content, time: Date.now()
+            }, function(error) {
+                if(error) {
+                    alert(error);
+                } else {
+                    alert("OK");
+                }
+            });
 
+        }
     </script>
 </head>
 <body>
@@ -52,7 +72,8 @@
         <button onclick="signIn();">Sign in</button>
     </div>
     <div id="member" style="display: none;">
-        Hello
+        <textarea id="content"></textarea>
+        <button onclick="post();">Post</button>
     </div>
     <hr />
     <div id="list">
