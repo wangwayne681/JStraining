@@ -91,7 +91,7 @@
                     list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
                 } else { // 登入狀態
                     if ( currentUser === message.id) { // 和留言的作者是同一個人
-                        list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del(\""message.key"\");'>Delete</button>" + "<hr />" + list.innerHTML;
+                        list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del(\"" + message.key + "\");'>Delete</button>" + "<hr />" + list.innerHTML;
                     } else { // 不同的人
                         list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
                     }
