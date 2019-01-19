@@ -52,9 +52,12 @@
             let name = currentUser.displayName;
             let content = document.getElementById("content").value;
             // 加入資料庫
-            let ref = db.ref("/message");
+            let ref = db.ref("/messages");
             ref.push({
-                id:id, name:name, content: content, time: Date.now()
+                id:id, 
+                name:name, 
+                content: content, 
+                time: Date.now()
             }, function(error) {
                 if(error) {
                     alert(error);
@@ -62,8 +65,21 @@
                     alert("OK");
                 }
             });
-
         }
+        function read() {
+            let ref = db.ref("/messages");
+            ref.once("value", function(snapshots) {
+                let data = [];
+                snapshots.forEach(function(snapshot) {
+                    data.push(snapshot.val());
+                });
+                console.log(data);
+            });
+        }
+        // 網頁載入完成後,做一些處理
+        window.addEventListener("load", function() {
+            read();
+        });
     </script>
 </head>
 <body>
