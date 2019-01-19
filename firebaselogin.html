@@ -77,7 +77,7 @@
                     message.key = snapshot.key;
                     data.push(message);
                 });
-                console.log(data);
+                // console.log(data);
                 show(data);
             });
         }
@@ -91,15 +91,15 @@
                     list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
                 } else { // 登入狀態
                     if ( currentUser === message.id) { // 和留言的作者是同一個人
-                        list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del();'>Delete</button>" + "<hr />" + list.innerHTML;
+                        list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del(\""message.key"\");'>Delete</button>" + "<hr />" + list.innerHTML;
                     } else { // 不同的人
                         list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
                     }
                 }
             }
         }
-        function del() {
-            let ref = db.ref("/messages/???");
+        function del(key) {
+            let ref = db.ref("/messages/ "+ key);
             ref.remove(function(error) {
                 if (error) {
                     alert(error);
