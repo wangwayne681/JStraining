@@ -63,6 +63,7 @@
                     alert(error);
                 } else {
                     alert("OK");
+                    read();
                 }
             });
         }
@@ -81,7 +82,7 @@
             let list = document.getElementById("list");
             list.innerHTML="";
             let message;
-            for (let i=0;i<data.length;i++) {
+            for (let i=0; i<data.length; i++) {
                 message=data[i];
                 list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
             }
