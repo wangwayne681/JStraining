@@ -90,7 +90,7 @@
                 if (currentUser === null) { // 未登入狀態
                     list.innerHTML = message.name.bold() + " " + message.content + "<hr />" + list.innerHTML;
                 } else { // 登入狀態
-                    if ( currentUser === message.id) { // 和留言的作者是同一個人
+                    if ( currentUser.uid === message.id) { // 和留言的作者是同一個人
                         list.innerHTML = message.name.bold() + " " + message.content +"<button onclick='del(\""+ message.key +"\");'>Delete</button>" + "<hr />" + list.innerHTML;
                         console.log("OK");
                     } else { // 不同的人
