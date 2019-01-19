@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Message Board</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCE6IjnIVk-JxDbQNUVqLxSlAO2Ha6O30I",
+            authDomain: "orbital-choir-227712.firebaseapp.com",
+            databaseURL: "https://orbital-choir-227712.firebaseio.com",
+            projectId: "orbital-choir-227712",
+            storageBucket: "orbital-choir-227712.appspot.com",
+            messagingSenderId: "399564441956"
+        };
+        firebase.initializeApp(config);
+        let auth = firebase.auth();
+        let provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('user_birthday');
+        // 當使用者的登入狀態變化的時候,執行我們提供的函式.
+        auth.onAuthStateChanged(function(user) {
+            let member = document.getElementById("#member");
+            let welcome = document.getElementById("#welcome");
+            member.style.display="none";
+            welcome.style.display="none";
+            if (user) { //使用者已經登入
+                console.log(user);
+                member.style.display="block";
+            } else { //使用者已經登出
+                welcome.style.display="block";
+                console.log(user);
+            }
+        });
+        function signIn() {
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+
+            }).catch(function(error) {
+
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <h3>Message Board</h3>
+    <div id="welcome" style="display: none;">
+        <button onclick="signIn();">Sign in</button>
+    </div>
+    <div id="member" style="display: none;">
+        Hello
+    </div>
+    <hr />
+    <div id="list">
+        Message List
+    </div>
+</body>
+</html>
