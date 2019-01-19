@@ -38,6 +38,7 @@
         function signIn() {
             firebase.auth().signInWithPopup(provider).then(function(result) {
                 console.log(result);
+                console.log("Hello");
             }).catch(function(error) {
                 console.log(error);
             });
