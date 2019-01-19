@@ -23,8 +23,8 @@
         provider.addScope('user_birthday');
         // 當使用者的登入狀態變化的時候,執行我們提供的函式.
         auth.onAuthStateChanged(function(user) {
-            let member = document.getElementById("#member");
-            let welcome = document.getElementById("#welcome");
+            let member = document.getElementById("member");
+            let welcome = document.getElementById("welcome");
             member.style.display="none";
             welcome.style.display="none";
             if (user) { //使用者已經登入
